@@ -95,17 +95,17 @@ const formData = new FormData(form);
 const data = new URLSearchParams(formData);
 const objData = Object.fromEntries(data);
 const message = formatMessage(objData);
-window.open('https://wa.me/62882219508488?text='+ encodeURIComponent(message));
+window.open('http://wa.me/6283891162392?text='+ encodeURIComponent(message));
 });
 
-// form wa
+// format wa
 const formatMessage = (obj) =>{
     return `Data Customer
     Nama: ${obj.nama}
     Email: ${obj.email}
     No Hp: ${obj.phone}
 Data Pesanan
-${JSON.parse(obj.item).map((item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n` )}
+${JSON.parse(obj.items).map((item) => `${item.name} (${item.quantity} * ${rupiah(item.total)}) \n` )}
 
 TOTAL: ${rupiah(obj.total)} 
 
