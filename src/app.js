@@ -95,19 +95,19 @@ const formData = new FormData(form);
 const data = new URLSearchParams(formData);
 const objData = Object.fromEntries(data);
 const message = formatMessage(objData);
-window.open('http://wa.me/6283891162392?text='+ encodeURIComponent(message));
+window.open('http://wa.me/6282219508488?text='+ encodeURIComponent(message));
 });
 
 // format wa
 const formatMessage = (obj) =>{
-    return `Data Customer
+    return `*Data Customer*
     Nama: ${obj.nama}
     Email: ${obj.email}
     No Hp: ${obj.phone}
-Data Pesanan
+\n*Data Pesanan*
 ${JSON.parse(obj.items).map((item) => `${item.name} (${item.quantity} * ${rupiah(item.total)}) \n` )}
 
-TOTAL: ${rupiah(obj.total)} 
+TOTAL BELANJA: ${rupiah(obj.total)} 
 
 TERIMA KASIH.
 `;
