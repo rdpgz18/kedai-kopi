@@ -76,7 +76,7 @@ checkoutButton.disabled = true;
 
 
 const form = document.querySelector('#checkoutForm');
-form.addEventListener('keyup', function () {
+form.addEventListener('keyup', function() {
     for (let i = 0; i < form.elements.length; i++) {
         if (form.elements[i].value.length !== 0) {
             checkoutButton.classList.remove('disabled');
