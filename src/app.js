@@ -87,6 +87,31 @@ form.addEventListener('keyup', function(){
     checkButton.classList.remove('disabled');
 });
 
+// kirim data ketika checkout
+checkButton.addEventListener('click', function(e){
+e.preventDefault();
+
+const formData = new formData(form);
+const data = new URLSearchParams(formData);
+const objData = Object.fromEntries(data);
+const message = formatMessage(objData);
+window.open('https://wa.me/62882219508488?text='+ encodeURIComponent(message));
+});
+// form wa
+const formatMessage = (obj) =>{
+    return `Data Customer
+    Nama: ${obj.nama}
+    Email: ${obj.email}
+    No Hp: ${obj.phone}
+Data Pesanan
+${JSON.parse(obj.item).map((item) => `${item.name} (${item.quantity} x ${rupiah(item.total)}) \n` )}
+
+TOTAL: ${rupiah(obj.total)} 
+
+TERIMA KASIH.
+`;
+}
+
 
 // konversi rupiah
 const rupiah = (number) => {
