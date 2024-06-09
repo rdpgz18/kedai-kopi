@@ -70,33 +70,34 @@ document.addEventListener('alpine:init', () => {
 });
 
 // form validation
-const checkButton = document.querySelector('.checkout-button');
-checkButton.disabled = true;
+const checkoutButton = document.querySelector('.checkout-button');
+checkoutButton.disabled = true;
 
 const form = document.querySelector('#checkoutForm');
 form.addEventListener('keyup', function(){
     for (let i = 0; i < form.elements.length; i++) {
         if (form.elements[i].value.length !== 0) {
-            checkButton.classList.remove('disabled');
-            checkButton.classList.add('disabled');
+            checkoutButton.classList.remove('disabled');
+            checkoutButton.classList.add('disabled');
         }else{
             return false;
         }
     }
-    checkButton.disabled = false;
-    checkButton.classList.remove('disabled');
+    checkoutButton.disabled = false;
+    checkoutButton.classList.remove('disabled');
 });
 
 // kirim data ketika checkout
-checkButton.addEventListener('click', function(e){
+checkoutButton.addEventListener('click', function(e){
 e.preventDefault();
 
-const formData = new formData(form);
+const formData = new FormData(form);
 const data = new URLSearchParams(formData);
 const objData = Object.fromEntries(data);
 const message = formatMessage(objData);
 window.open('https://wa.me/62882219508488?text='+ encodeURIComponent(message));
 });
+
 // form wa
 const formatMessage = (obj) =>{
     return `Data Customer
