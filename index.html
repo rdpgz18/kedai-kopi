@@ -21,7 +21,11 @@
   <!---Alpain js --->
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <!-- app -->
-   <script src="src/app.js" async></script>
+  <script src="src/app.js" async></script>
+
+  <!-- mindtrans -->
+  <script type="text/javascript" src="https://app.sandbox.midtrans.com/snap/snap.js"
+    data-client-key="SB-Mid-client-ogt8oWRtZlsFr58w"></script>
 </head>
 
 <body>
@@ -62,9 +66,9 @@
             <h3 x-text="item.name"></h3>
             <div class="rupiah(item.price)">
               <span x-text="item.price"></span>&times;
-              <button id="remove" @click ="$store.cart.remove(item.id)">&minus;</button>
+              <button id="remove" @click="$store.cart.remove(item.id)">&minus;</button>
               <span x-text="item.quantity"></span>
-              <button id="add" @click ="$store.cart.add(item)">&plus;</button>&equals;
+              <button id="add" @click="$store.cart.add(item)">&plus;</button>&equals;
               <span x-text="rupiah(item.total)"></span>
             </div>
           </div>
@@ -90,11 +94,12 @@
             <span>Phone</span>
             <input type="text" name="phone" id="phone" autocomplete="off">
           </label>
-          <button type="submit" class="checkout-button disabled" name="checkout-button" value="checkout">Checkout</button>
+          <button type="submit" class="checkout-button disabled" name="checkout-button"
+            value="checkout">Checkout</button>
         </form>
       </div>
     </div>
-      <!-- Shopping Cart end -->
+    <!-- Shopping Cart end -->
 
   </nav>
   <!-- Navbar end -->
@@ -313,7 +318,7 @@
   <!-- My Javascript -->
   <script src="js/script.js" async></script>
 
- 
+
 </body>
 
 </html>

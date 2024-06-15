@@ -74,12 +74,12 @@ const checkoutButton = document.querySelector('.checkout-button');
 checkoutButton.disabled = true;
 
 const form = document.querySelector('#checkoutForm');
-form.addEventListener('keyup', function(){
+form.addEventListener('keyup', function () {
     for (let i = 0; i < form.elements.length; i++) {
         if (form.elements[i].value.length !== 0) {
             checkoutButton.classList.remove('disabled');
             checkoutButton.classList.add('disabled');
-        }else{
+        } else {
             return false;
         }
     }
@@ -88,31 +88,48 @@ form.addEventListener('keyup', function(){
 });
 
 // kirim data ketika checkout
-checkoutButton.addEventListener('click', function(e){
-e.preventDefault();
+checkoutButton.addEventListener('click', async function (e) {
+    e.preventDefault();
 
-const formData = new FormData(form);
-const data = new URLSearchParams(formData);
-const objData = Object.fromEntries(data);
-const message = formatMessage(objData);
-window.open('http://wa.me/6282219508488?text='+ encodeURIComponent(message));
+    const formData = new FormData(form);
+    const data = new URLSearchParams(formData);
+    const objData = Object.fromEntries(data);
+
+    /*const message = formatMessage(objData);
+    window.open('http://wa.me/6282219508488?text='+ encodeURIComponent(message));*/
+
+    // minta transaksi token ajax
+
+    try {
+        const response = await fetch('php/placeOrder.php', {
+            method: 'POST',
+            body: data,
+
+        });
+        const token = await response.text();
+
+        //console.log(token);
+        window.snap.pay(token);
+    } catch (err) {
+        console.log(err.message);
+    }
+
 });
 
 // format wa
-const formatMessage = (obj) =>{
+const formatMessage = (obj) => {
     return `*Data Customer*
     Nama: ${obj.nama}
     Email: ${obj.email}
     No Hp: ${obj.phone}
 \n*Data Pesanan*
-${JSON.parse(obj.items).map((item) => `${item.name} (${item.quantity} * ${rupiah(item.total)}) \n` )}
+${JSON.parse(obj.items).map((item) => `${item.name} (${item.quantity} * ${rupiah(item.total)}) \n`)}
 
 TOTAL BELANJA: ${rupiah(obj.total)} 
 
 TERIMA KASIH.
 `;
 }
-
 
 // konversi rupiah
 const rupiah = (number) => {
